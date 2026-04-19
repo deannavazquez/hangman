@@ -6,7 +6,7 @@ class Hangman
   def initialize
     @secret_word = secret_word
     @correct_guesses = 0
-    @incorrect_guesses = 0
+    @wrong_guesses = []
     @remaining_attempts = 0
     @current_display = []
   end
@@ -19,11 +19,24 @@ class Hangman
   end
 
   def display_underscores
-    # @secret_word.chars.each do |l|
-    # l.replace('_')
     @secret_word.chars.map { '_' }.join(' ')
+  end
+
+  def player_guess
+    input = gets.chomp
+    guess = input.downcase
+
+    if valid_guess?(guess)
+      puts 'yes!'
+    else
+      puts 'INVALID! Please enter a lower case letter!'
+    end
+  end
+
+  def valid_guess?(guess)
+    guess.length == 1 && guess.match?(/^[a-z]+$/)
   end
 end
 
 game = Hangman.new
-puts game.display_underscores
+puts game.player_guess
