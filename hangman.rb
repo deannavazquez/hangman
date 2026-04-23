@@ -5,10 +5,23 @@ class Hangman
 
   def initialize
     @secret_word = secret_word
-    @correct_guesses = 0
+    @correct_guesses = []
     @wrong_guesses = []
-    @remaining_attempts = 0
+    @remaining_attempts = 6
     @current_display = []
+  end
+
+  def intro_message
+    puts 'Welcome to Hangman!'
+    puts
+    puts 'Guess the secret word one letter at a time.'
+    puts 'You have 6 incorrect guesses before the game ends.'
+    puts
+    puts 'Enter a single letter each turn.'
+    puts 'Correct guesses will reveal their position in the word.'
+    puts 'Incorrect guesses will be tracked.'
+    puts
+    puts 'Let’s begin!'
   end
 
   # When a new game is started, your script should load in the dictionary
@@ -19,10 +32,11 @@ class Hangman
   end
 
   def display_underscores
-    @secret_word.chars.map { '_' }.join(' ')
+    @current_display = @secret_word.chars.map { '_' }.join(' ')
   end
 
   def player_guess
+    print 'Enter a letter: '
     input = gets.chomp
     guess = input.downcase
 
