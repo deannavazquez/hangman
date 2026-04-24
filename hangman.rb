@@ -41,6 +41,7 @@ class Hangman
     guess = input.downcase
 
     if valid_guess?(guess)
+      # add match criteria and increment counters
       puts 'yes!'
     else
       puts 'INVALID! Please enter a lower case letter!'
@@ -50,7 +51,27 @@ class Hangman
   def valid_guess?(guess)
     guess.length == 1 && guess.match?(/^[a-z]+$/)
   end
+
+  def check_letter(guess)
+    @secret_word.chars.each_with_index do |letter, index|
+      if guess == letter
+        @correct_guesses << guess unless @correct_guesses.include?(guess)
+        @current_display[index] = letter
+      end
+    end
+    @wrong_guesses << guess unless @wrong_guesses.include?(guess)
+    # puts 'Wrong guesses:' + "#{@wrong_guesses}"
+  end
 end
 
 game = Hangman.new
-puts game.player_guess
+
+# Peek at the secret word so you can craft known inputs
+puts "Secret word: #{game.instance_variable_get(:@secret_word)}"
+
+game.display_underscores # initialize @current_display as an array first
+
+puts game.check_letter('a') # => true or false depending on the word
+puts game.correct_guesses.inspect
+puts game.instance_variable_get(:@wrong_guesses).inspect
+puts game.current_display.inspect
