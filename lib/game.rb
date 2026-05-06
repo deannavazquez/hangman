@@ -53,5 +53,6 @@ class Game
 
   # Player wins if all letters of the secret word are guessed correctly
   def winner?
+    @code.current_display[index] = found
   end
 end
