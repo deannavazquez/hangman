@@ -2,13 +2,13 @@
 class Code
   DICTIONARY = 'google-10000-english-no-swears.txt'.freeze
 
-  attr_accessor :secret_word, :correct_guesses, :incorrect_guesses, :remaining_attempts, :current_display
+  attr_accessor :secret_word, :correct_guesses, :incorrect_guesses, :remaining_attempts, :display
 
   def initialize
     @secret_word = generate_word
     @correct_guesses = []
     @wrong_guesses = []
-    @current_display = []
+    @display = []
     welcome_message
     @remaining_attempts = 6
   end
@@ -21,8 +21,13 @@ class Code
   end
 
   def display_underscores
-    @current_display = @secret_word.chars.map { '_' }
+    @display = @secret_word.chars.map { '_' }
+    # .join(' ')
     # .join(' ') - might add back but right now it turns current display into a string
+  end
+
+  def current_display
+    p @display # trying to figure out how to display horizontally without puts
   end
 
   def check_letter(guess)
@@ -31,11 +36,10 @@ class Code
       next unless guess == letter
 
       @correct_guesses << guess unless @correct_guesses.include?(guess)
-      @current_display[index] = letter
-      @current_display.each_char { |i| }
+      @display[index] = letter
       found = true
     end
-    @wrong_guesses << guess unless @wrong_guesses.include?(guess)
+    @wrong_guesses << guess unless found || @wrong_guesses.include?(guess)
     found
   end
 
