@@ -56,17 +56,25 @@ class Game
     winner? || @code.remaining_attempts.zero?
   end
 
+  def show_board
+    puts '-' * 30
+    puts "Word: #{@code.display.join(' ')}"
+    puts "Wrong guesses: #{@code.wrong_guesses.join(', ')}"
+    puts "Attempts left: #{@code.remaining_attempts}"
+    puts '-' * 30
+  end
+
   def play
     loop do
+      show_board
+
       player_guess
-      puts "Attempts: #{@code.remaining_attempts}"
-      puts "Display: #{@code.display.inspect}"
-      puts "Wrong Guesses: #{@code.wrong_guesses}"
+
       if winner?
-        puts "You win! The word was: #{@code.secret_word}"
+        puts "🎉 You win! The word was: #{@code.secret_word}"
         break
       elsif game_over?
-        puts "No more guesses! The word was '#{@code.secret_word}' 😬"
+        puts "💀  No more guesses! The word was '#{@code.secret_word}"
         break
       end
     end
