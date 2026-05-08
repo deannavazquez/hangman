@@ -5,7 +5,6 @@ class Code
 
   def initialize
     @secret_word = generate_word
-    @correct_guesses = []
     @wrong_guesses = []
     display_underscores
     @remaining_attempts = 6
