@@ -20,12 +20,7 @@ class Code
 
   def display_underscores
     @display = @secret_word.chars.map { '_' }
-    # .join(' ') - might add back but right now it turns current display into a string
   end
-
-  # def current_display
-  #   p @display # trying to figure out how to display horizontally without puts
-  # end
 
   def check_letter(guess)
     puts "Checking #{guess} against #{@secret_word}"
