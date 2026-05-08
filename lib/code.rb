@@ -1,14 +1,13 @@
 # Enter Documentation Here
 class Code
-  DICTIONARY = 'google-10000-english-no-swears.txt'.freeze
-
+  DICTIONARY = File.expand_path('google-10000-english-no-swears.txt', __dir__)
   attr_accessor :secret_word, :wrong_guesses, :remaining_attempts, :display
 
   def initialize
     @secret_word = generate_word
     @correct_guesses = []
     @wrong_guesses = []
-    @display = []
+    @display = display_underscores
     @remaining_attempts = 6
   end
 
@@ -21,13 +20,12 @@ class Code
 
   def display_underscores
     @display = @secret_word.chars.map { '_' }
-    # .join(' ')
     # .join(' ') - might add back but right now it turns current display into a string
   end
 
-  def current_display
-    p @display # trying to figure out how to display horizontally without puts
-  end
+  # def current_display
+  #   p @display # trying to figure out how to display horizontally without puts
+  # end
 
   def check_letter(guess)
     puts "Checking #{guess} against #{@secret_word}"

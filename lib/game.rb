@@ -49,21 +49,25 @@ class Game
 
   # Player wins if all letters of the secret word are guessed correctly
   def winner?
-    @display.none?('_')
+    @code.display.none?('_')
   end
 
   def game_over?
-    winner? || @remaining_attempts.zero?
+    winner? || @code.remaining_attempts.zero?
   end
 
   def play
     loop do
       player_guess
-
+      puts "Attempts: #{@code.remaining_attempts}"
+      puts "Display: #{@code.display.inspect}"
+      puts "Winner?: #{winner?}"
       if winner?
-        puts "You win! The word was: #{secret_word}"
+        puts "You win! The word was: #{@code.secret_word}"
+        break
       elsif game_over?
-        puts "No more guesses! The word was '#{secret_word}' 😬"
+        puts "No more guesses! The word was '#{@code.secret_word}' 😬"
+        break
       end
     end
   end
