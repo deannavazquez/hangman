@@ -9,7 +9,6 @@ class Game
   def initialize
     welcome_message
     @code = Code.new
-    @remaining_attempts = 6
   end
 
   def welcome_message
@@ -39,9 +38,6 @@ class Game
     if valid_guess?(guess)
       # Send guess to Code class for match calculation
       @code.check_letter(guess)
-
-      # Increment turn counter only for valid guesses
-      @remaining_attempts - 1
     else
       puts 'INVALID! Please enter a lower case letter!'
     end
@@ -53,6 +49,22 @@ class Game
 
   # Player wins if all letters of the secret word are guessed correctly
   def winner?
-    @code.current_display[index] = found
+    @display.none?('_')
+  end
+
+  def game_over?
+    winner? || @remaining_attempts.zero?
+  end
+
+  def play
+    loop do
+      player_guess
+
+      if winner?
+        puts "You win! The word was: #{secret_word}"
+      elsif game_over?
+        puts "No more guesses! The word was '#{secret_word}' 😬"
+      end
+    end
   end
 end
