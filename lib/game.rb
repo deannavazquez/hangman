@@ -61,7 +61,7 @@ class Game
       player_guess
       puts "Attempts: #{@code.remaining_attempts}"
       puts "Display: #{@code.display.inspect}"
-      puts "Winner?: #{winner?}"
+      puts "Wrong Guesses: #{@code.wrong_guesses}"
       if winner?
         puts "You win! The word was: #{@code.secret_word}"
         break

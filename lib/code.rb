@@ -7,7 +7,7 @@ class Code
     @secret_word = generate_word
     @correct_guesses = []
     @wrong_guesses = []
-    @display = display_underscores
+    display_underscores
     @remaining_attempts = 6
   end
 
