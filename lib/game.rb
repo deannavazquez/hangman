@@ -36,8 +36,11 @@ class Game
     guess = input.downcase
 
     if valid_guess?(guess)
-      # Send guess to Code class for match calculation
-      @code.check_letter(guess)
+      if @code.display.include?(guess) || @code.wrong_guesses.include?(guess)
+        puts 'You already guessed that letter'
+      else
+        @code.check_letter(guess)
+      end
     else
       puts 'INVALID! Please enter a lower case letter!'
     end
