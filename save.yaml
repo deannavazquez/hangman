@@ -1,0 +1,13 @@
+--- !ruby/object:Game
+code: !ruby/object:Code
+  secret_word: concord
+  wrong_guesses: []
+  display:
+  - _
+  - _
+  - _
+  - _
+  - _
+  - _
+  - _
+  remaining_attempts: 6

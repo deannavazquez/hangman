@@ -1,14 +1,10 @@
 require_relative 'code'
+require 'yaml'
 
-# The Game class controls:
-# 1. Player interaction (input/output)
-# 2. Turn tracking
-# 3. Win / lose logic
-# 4. The main game loop
 class Game
-  def initialize
+  def initialize(code = Code.new)
     welcome_message
-    @code = Code.new
+    @code = code
   end
 
   def welcome_message
@@ -24,18 +20,14 @@ class Game
     puts 'Let’s begin!'
   end
 
-  # Handles one turn of player input.
-  # This method:
-  # - Prompts the player
-  # - Converts input into usable format
-  # - Validates the guess
-  # - Sends the guess to Code for evaluation
   def player_guess
-    print 'Enter a letter: '
+    print "Enter a guess or type 'save': "
     input = gets.chomp
     guess = input.downcase
 
-    if valid_guess?(guess)
+    if guess == 'save'
+      save_game
+    elsif valid_guess?(guess)
       if @code.display.include?(guess) || @code.wrong_guesses.include?(guess)
         puts 'You already guessed that letter'
       else
@@ -47,10 +39,9 @@ class Game
   end
 
   def valid_guess?(guess)
-    guess.length == 1 && guess.match?(/^[a-z]+$/)
+    guess.length == 1 && guess.match?(/^[a-z]$/)
   end
 
-  # Player wins if all letters of the secret word are guessed correctly
   def winner?
     @code.display.none?('_')
   end
@@ -67,7 +58,24 @@ class Game
     puts '-' * 30
   end
 
-  def play
+  def save_game
+    File.open('save.yaml', 'w') do |file|
+      file.write(YAML.dump(self))
+    end
+
+    puts 'Game saved!'
+    exit
+  end
+
+  def self.load_game
+    yaml_data = File.read('save.yaml')
+    YAML.safe_load(
+      yaml_data,
+      permitted_classes: [Game, Code]
+    )
+  end
+
+  def play # rubocop:disable Metrics/MethodLength
     loop do
       show_board
 
@@ -77,7 +85,7 @@ class Game
         puts "🎉 You win! The word was: #{@code.secret_word}"
         break
       elsif game_over?
-        puts "💀  No more guesses! The word was '#{@code.secret_word}"
+        puts "💀 No more guesses! The word was: #{@code.secret_word}"
         break
       end
     end
