@@ -83,6 +83,8 @@ class Game
     if choice == 'n'
       play
     elsif choice == 'c'
+      puts ''
+      puts 'Welcome back!'
       Game.load_game.play
     else
       exit
