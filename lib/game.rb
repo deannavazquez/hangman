@@ -3,7 +3,6 @@ require 'yaml'
 
 class Game
   def initialize(code = Code.new)
-    welcome_message
     @code = code
   end
 
@@ -81,6 +80,7 @@ class Game
     choice = input.downcase
 
     if choice == 'n'
+      welcome_message
       play
     elsif choice == 'c'
       puts ''
