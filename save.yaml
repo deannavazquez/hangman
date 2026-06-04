@@ -1,7 +1,8 @@
 --- !ruby/object:Game
 code: !ruby/object:Code
-  secret_word: concord
-  wrong_guesses: []
+  secret_word: myspace
+  wrong_guesses:
+  - r
   display:
   - _
   - _
@@ -9,5 +10,5 @@ code: !ruby/object:Code
   - _
   - _
   - _
-  - _
-  remaining_attempts: 6
+  - e
+  remaining_attempts: 5

@@ -20,7 +20,7 @@ class Game
     puts 'Let’s begin!'
   end
 
-  def player_guess
+  def player_guess # rubocop:disable Metrics/MethodLength
     print "Enter a guess or type 'save': "
     input = gets.chomp
     guess = input.downcase
@@ -73,6 +73,20 @@ class Game
       yaml_data,
       permitted_classes: [Game, Code]
     )
+  end
+
+  def loaded_game
+    print 'Start a [n]ew game, [c]ontinue a saved one or [e]xit? '
+    input = gets.chomp
+    choice = input.downcase
+
+    if choice == 'n'
+      play
+    elsif choice == 'c'
+      Game.load_game.play
+    else
+      exit
+    end
   end
 
   def play # rubocop:disable Metrics/MethodLength
