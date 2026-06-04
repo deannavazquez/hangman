@@ -55,3 +55,10 @@ At the start of any turn, enter `save` to serialize the current game state to a 
 Serialization uses Ruby's **YAML** module to persist the full game object — secret word, guessed letters, and remaining attempts.
 
 ## Project structure
+mastermind/
+│
+├── lib/
+│   ├── code.rb      # Generates and evaluates the secret code
+│   └── game.rb      # Handles game flow, turns, and player interaction
+│
+└── main.rb          # Entry point that starts the game
