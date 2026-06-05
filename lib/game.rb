@@ -98,6 +98,7 @@ class Game
       player_guess
 
       if winner?
+        show_board
         puts "🎉 You win! The word was: #{@code.secret_word}"
         break
       elsif game_over?
